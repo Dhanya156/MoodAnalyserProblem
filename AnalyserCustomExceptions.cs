@@ -13,7 +13,8 @@ namespace MoodAnalyserProblem
         {
             NULL_MESSAGE, EMPTY_MESSAGE,
             NO_SUCH_FEILD, NO_SUCH_CLASS,
-            NO_METHOD, OBJECT_CREATION_ISSUE
+            OBJECT_CREATION_ISSUE,
+            NO_SUCH_METHOD
         }
 
         /// <summary>Creation type variable of type ExceptionType</summary>
