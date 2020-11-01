@@ -28,15 +28,22 @@ namespace MoodAnalyserProblem
         /// <returns>
         ///AnalyseMood Is a method that returns Happy or Sad
         /// </returns>
-        public string AnalyseMood(string message)
+        public string AnalyseMood()
         {
-            if (message.Contains("sad"))
-                return "SAD";
-            else
+            try
+            {
+                if (this.message.Contains("sad"))
+                    return "SAD";
+                else
+                    return "HAPPY";
+            }
+            catch
+            {
                 return "HAPPY";
+            }
         }
 
-        public string AnalyseMood()
+        public string AnalyseMood(string message)
         {
             throw new NotImplementedException();
         }
