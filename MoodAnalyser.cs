@@ -10,7 +10,8 @@ namespace MoodAnalyserProblem
     public class MoodAnalyser
     {
         /// <summary>The message</summary>
-        private string message;
+        private readonly string message;
+
         /// <summary>Initializes a new instance of the <see cref="MoodAnalyser" /> class.</summary>
         public MoodAnalyser()
         {
@@ -23,6 +24,7 @@ namespace MoodAnalyserProblem
         {
             this.message = message;
         }
+
         /// <summary>Analyses the mood.</summary>
         /// <param name="message">The message.</param>
         /// <returns>
@@ -32,20 +34,21 @@ namespace MoodAnalyserProblem
         {
             try
             {
+                if (this.message.Equals(string.Empty))
+                {
+                    throw new AnalyserCustomExceptions(AnalyserCustomExceptions.ExceptionType.EMPTY_MESSAGE, "Mood should not be Empty");
+                }
                 if (this.message.Contains("sad"))
                     return "SAD";
                 else
                     return "HAPPY";
             }
-            catch
+            catch(NullReferenceException)
             {
-                return "HAPPY";
+                throw new AnalyserCustomExceptions(AnalyserCustomExceptions.ExceptionType.NULL_MESSAGE, "Mood should not be null");
             }
         }
 
-        public string AnalyseMood(string message)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
