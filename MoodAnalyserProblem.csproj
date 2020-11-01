@@ -5,4 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="MoodAnalyserUnitTestCases\**" />
+    <EmbeddedResource Remove="MoodAnalyserUnitTestCases\**" />
+    <None Remove="MoodAnalyserUnitTestCases\**" />
+  </ItemGroup>
+
 </Project>
