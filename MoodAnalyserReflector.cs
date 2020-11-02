@@ -8,9 +8,9 @@ using System.Text.RegularExpressions;
 namespace MoodAnalysis
 {
     /// <summary>
-    /// MoodAnalyserFactory class is to create reflection of MoodAnalyser Class
+    /// MoodAnalyserReflector class is to create reflection of MoodAnalyser Class
     /// </summary>
-    public class MoodAnalyserFactory
+    public class MoodAnalyserReflector
     {
         /// <summary>Creates the mood analyser.</summary>
         /// <param name="className">Name of the class.</param>
@@ -44,33 +44,22 @@ namespace MoodAnalysis
             }
 
         }
-        /// <summary>Creates the mood analyser using parameterized constructor.</summary>
-        /// <param name="className">Name of the class.</param>
-        /// <param name="constructorName">Name of the constructor.</param>
-        /// <param name="message">The message.</param>
-        /// <exception cref="AnalyserCustomExceptions">Constructor not Found
-        /// or
-        /// Class not Found</exception>
-        public static object CreateMoodAnalyserUsingParameterizedConstructor(string className, string constructorName, string message)
+        
+        public static string InvokeAnalyseMood(string method, string message)
         {
-            Type type = typeof(MoodAnalyser);
-            if (type.Name.Equals(className) || type.FullName.Equals(className))
+            try
             {
-                if (type.Name.Equals(constructorName))
-                {
-                    ConstructorInfo ctor = type.GetConstructor(new[] { typeof(string) });
-                    object instance = ctor.Invoke(new object[] { message });
-                    return instance;
-                }
-                else
-                {
-                    throw new AnalyserCustomExceptions(AnalyserCustomExceptions.ExceptionType.NO_SUCH_METHOD, "Constructor Not Found");
-                }
+                Type moodAnalyserType = typeof(MoodAnalyser);
+                object moodAnalyserInstance = Activator.CreateInstance(moodAnalyserType);
+                MethodInfo toInvoke = moodAnalyserType.GetMethod("AnalyseMood");
+                toInvoke.Invoke(moodAnalyserInstance, null);
+                return toInvoke.ToString();
             }
-            else
+            catch (NullReferenceException)
             {
-                throw new AnalyserCustomExceptions(AnalyserCustomExceptions.ExceptionType.NO_SUCH_CLASS, "Class Not Found");
+                throw new AnalyserCustomExceptions(AnalyserCustomExceptions.ExceptionType.NO_SUCH_METHOD, "No Such Method");
             }
+          
         }
 
         internal static void CreateMoodAnalyser()
